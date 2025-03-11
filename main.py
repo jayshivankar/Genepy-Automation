@@ -39,9 +39,28 @@ sign_in_2.click()
 stop_scrolling = 0
 while True:
     stop_scrolling += 1
-    driver.execute_script("window.scrollBy(0,40)")  # Scroll down by 40 pixels
+    driver.execute_script("window.scrollBy(0,4000)")  # Scroll down by 80 pixels
     time.sleep(0.5)  # Wait for 0.5 seconds
-    if stop_scrolling > 80:  # Stop after 120 scrolls (~4800 pixels)
+    if stop_scrolling > 1:  # Stop after 40 scrolls (~4000 pixels)
         break
 
 time.sleep(3)
+
+# solve exception problem
+exceptions_problem = driver.find_element(By.XPATH,value='//*[@id="exercises"]/main/table/tbody/tr[37]/td[4]')
+exceptions_problem.click()
+time.sleep(10)
+# Locate the div containing the elements
+div_element=driver.find_element(By.XPATH,value='//*[@id="instructions"]')
+
+# Extract text from paragraph and heading tags inside the div
+content=[]
+for tags in ["p"]:
+    elements=div_element.find_elements(By.TAG_NAME,tags)
+    for elem in elements:
+        content.append(elem.text)
+text_content = "\n".join(content)
+print(text_content)
+
+# open chatgpt
+driver.get("https://chatgpt.com/")
