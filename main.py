@@ -60,7 +60,16 @@ for tags in ["p"]:
     for elem in elements:
         content.append(elem.text)
 text_content = "\n".join(content)
-print(text_content)
 
+
+# Create and configure the Chrome webdriver for chatgpt
+driver_2 = webdriver.Chrome(options=chrome_options)
+driver_2.maximize_window()
 # open chatgpt
-driver.get("https://chatgpt.com/")
+driver_2.get("https://chatgpt.com/")
+time.sleep(3)
+question1_paste=driver_2.find_element(By.XPATH,value='//*[@id="prompt-textarea"]/p')
+question1_paste.send_keys(text_content)
+time.sleep(3)
+enter_key=driver_2.find_element(By.XPATH,value='//*[@id="composer-background"]/div[2]/div[2]')
+enter_key.click()
